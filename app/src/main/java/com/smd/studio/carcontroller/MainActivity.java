@@ -43,9 +43,11 @@ public class MainActivity extends ActionBarActivity {
             channelssh.setOutputStream(baos);
 
             // Execute command
-            channelssh.setCommand("ls");
+            //channelssh.setCommand("sudo python /home/pi/Projects/Car.py");
+            channelssh.setCommand("sudo reboot");
             channelssh.connect();
-            channelssh.disconnect();
+            //channelssh.disconnect();
+
         } catch (JSchException e) {
             e.printStackTrace();
         }
