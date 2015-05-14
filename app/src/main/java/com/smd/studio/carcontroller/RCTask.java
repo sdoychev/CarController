@@ -15,7 +15,7 @@ import java.util.Properties;
 /**
  * Created by Doychev on 13.5.2015 г..
  */
-public class ControlTask extends AsyncTask {
+public class RCTask extends AsyncTask {
     @Override
     protected Void doInBackground(Object... params) {
 
@@ -24,7 +24,6 @@ public class ControlTask extends AsyncTask {
         try {
             session = jsch.getSession("pi", "192.168.1.103", 22);
             session.setPassword("raspberry");
-
             // Avoid asking for key confirmation
             Properties prop = new Properties();
             prop.put("StrictHostKeyChecking", "no");
@@ -46,7 +45,6 @@ public class ControlTask extends AsyncTask {
                 data = input.read();
             }
             Log.e("RASPBERRY RESPONSE", result);
-
             channelssh.disconnect();
         } catch (JSchException e) {
             e.printStackTrace();
