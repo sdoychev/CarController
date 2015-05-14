@@ -45,7 +45,7 @@ public class ControlTask extends AsyncTask {
                 result += (char) data;
                 data = input.read();
             }
-            Log.e("CAR", result);
+            Log.e("RASPBERRY RESPONSE", result);
 
             channelssh.disconnect();
         } catch (JSchException e) {
