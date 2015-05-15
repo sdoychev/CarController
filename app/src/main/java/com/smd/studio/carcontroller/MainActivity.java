@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -12,9 +13,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RCTask rcTask = (RCTask) new RCTask().execute();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -36,5 +35,29 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void moveCar(View v) {
+        RCTask rcTask = new RCTask();
+        if (v.getId() == R.id.btnForward) {
+            rcTask.execute(Constants.FORWARD);
+        } else if (v.getId() == R.id.btnForwardLeft) {
+            rcTask.execute(Constants.FORWARD_LEFT);
+        } else if (v.getId() == R.id.btnForwardRight) {
+            rcTask.execute(Constants.FORWARD_RIGHT);
+        } else if (v.getId() == R.id.btnBackward) {
+            rcTask.execute(Constants.BACKWARD);
+        } else if (v.getId() == R.id.btnBackwardLeft) {
+            rcTask.execute(Constants.BACKWARD_LEFT);
+        } else if (v.getId() == R.id.btnBackwardRight) {
+            rcTask.execute(Constants.BACKWARD_RIGHT);
+        } else if (v.getId() == R.id.btnLeft) {
+            rcTask.execute(Constants.LEFT);
+        } else if (v.getId() == R.id.btnRight) {
+            rcTask.execute(Constants.RIGHT);
+        } else if (v.getId() == R.id.btnStop) {
+            rcTask.execute(Constants.STOP);
+        }
+        return;
     }
 }

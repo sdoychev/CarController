@@ -12,15 +12,12 @@ import java.util.Properties;
 /**
  * Created by Doychev on 13.5.2015 г..
  */
-public class RCTask extends AsyncTask {
+public class RCTask extends AsyncTask<String, Void, Void> {
     @Override
-    protected Void doInBackground(Object... params) {
-
-        JSch jsch = new JSch();
-        Session session = null;
-        String result = "";
+    protected Void doInBackground(String... params) {
         try {
-            session = jsch.getSession(Constants.USERNAME, Constants.HOST, 22);
+            JSch jsch = new JSch();
+            Session session = jsch.getSession(Constants.USERNAME, Constants.HOST, 22);
             session.setPassword(Constants.PASSWORD);
             // Avoid asking for key confirmation
             Properties prop = new Properties();
@@ -29,10 +26,9 @@ public class RCTask extends AsyncTask {
             session.connect();
 
             ChannelExec channelExec = (ChannelExec) session.openChannel("exec");
-            channelExec.setCommand(Constants.FORWARD);
+            channelExec.setCommand(params[0]);
             channelExec.connect();
-            //channelExec.disconnect();     at OnStop()
-
+            //channelExec.disconnect();
         } catch (JSchException e) {
             e.printStackTrace();
         }
