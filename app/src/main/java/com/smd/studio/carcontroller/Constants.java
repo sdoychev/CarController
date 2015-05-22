@@ -4,10 +4,8 @@ package com.smd.studio.carcontroller;
  * Created by Doychev on 15.5.2015 �..
  */
 public interface Constants {
-    String HOST = "192.168.1.103";
     String USERNAME = "pi";
     String PASSWORD = "raspberry";
-
     String FORWARD = "sudo python /home/pi/Projects/Car.py w";
     String FORWARD_LEFT = "sudo python /home/pi/Projects/Car.py q";
     String FORWARD_RIGHT = "sudo python /home/pi/Projects/Car.py e";
