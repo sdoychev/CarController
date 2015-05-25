@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 
 /**
- * Created by Doychev on 22.5.2015 ã..
+ * Created by Doychev on 22.5.2015.
  */
 
 public class ConnectionConfig extends Application {

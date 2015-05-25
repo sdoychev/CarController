@@ -1,18 +1,46 @@
 package com.smd.studio.carcontroller;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    Button forwardLeft, forward, forwardRight, left, stop, right, backward, backwardLeft, backwardRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        PressHoldButtonListener pressHoldButtonListener = new PressHoldButtonListener();
+
+        forwardLeft = (Button) findViewById(R.id.btnForwardLeft);
+        forwardLeft.setOnTouchListener(pressHoldButtonListener);
+        forward = (Button) findViewById(R.id.btnForward);
+        forward.setOnTouchListener(pressHoldButtonListener);
+        forwardRight = (Button) findViewById(R.id.btnForwardRight);
+        forwardRight.setOnTouchListener(pressHoldButtonListener);
+
+        left = (Button) findViewById(R.id.btnLeft);
+        left.setOnTouchListener(pressHoldButtonListener);
+        stop = (Button) findViewById(R.id.btnStop);
+        stop.setOnTouchListener(pressHoldButtonListener);
+        right = (Button) findViewById(R.id.btnRight);
+        right.setOnTouchListener(pressHoldButtonListener);
+
+        backwardLeft = (Button) findViewById(R.id.btnBackwardLeft);
+        backwardLeft.setOnTouchListener(pressHoldButtonListener);
+        backward = (Button) findViewById(R.id.btnBackward);
+        backward.setOnTouchListener(pressHoldButtonListener);
+        backwardRight = (Button) findViewById(R.id.btnBackwardRight);
+        backwardRight.setOnTouchListener(pressHoldButtonListener);
     }
 
     @Override
@@ -28,36 +56,38 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    public void moveCar(View v) {
-        RCTask rcTask = new RCTask();
-        if (v.getId() == R.id.btnForward) {
-            rcTask.execute(Constants.FORWARD);
-        } else if (v.getId() == R.id.btnForwardLeft) {
-            rcTask.execute(Constants.FORWARD_LEFT);
-        } else if (v.getId() == R.id.btnForwardRight) {
-            rcTask.execute(Constants.FORWARD_RIGHT);
-        } else if (v.getId() == R.id.btnBackward) {
-            rcTask.execute(Constants.BACKWARD);
-        } else if (v.getId() == R.id.btnBackwardLeft) {
-            rcTask.execute(Constants.BACKWARD_LEFT);
-        } else if (v.getId() == R.id.btnBackwardRight) {
-            rcTask.execute(Constants.BACKWARD_RIGHT);
-        } else if (v.getId() == R.id.btnLeft) {
-            rcTask.execute(Constants.LEFT);
-        } else if (v.getId() == R.id.btnRight) {
-            rcTask.execute(Constants.RIGHT);
-        } else if (v.getId() == R.id.btnStop) {
-            rcTask.execute(Constants.STOP);
+    public class PressHoldButtonListener implements View.OnTouchListener {
+        private Handler mHandler;
+        private MoveCarAction mAction;
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    if (mHandler != null) {
+                        return true;
+                    }
+                    mHandler = new Handler();
+                    mAction = new MoveCarAction(v, mHandler);
+                    mHandler.post(mAction);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    if (mHandler == null) {
+                        return true;
+                    }
+                    mHandler.removeCallbacks(mAction);
+                    mHandler = null;
+                    break;
+            }
+            return true;
         }
-        return;
     }
 }

@@ -10,7 +10,7 @@ import com.jcraft.jsch.Session;
 import java.util.Properties;
 
 /**
- * Created by Doychev on 13.5.2015 г..
+ * Created by Doychev on 13.5.2015.
  */
 public class RCTask extends AsyncTask<String, Void, Void> {
 

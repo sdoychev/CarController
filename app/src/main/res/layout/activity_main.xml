@@ -19,7 +19,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="moveCar"
             android:text="F L" />
 
         <Button
@@ -27,7 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="moveCar"
             android:text="F" />
 
         <Button
@@ -35,7 +33,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="moveCar"
             android:text="F R" />
     </LinearLayout>
 
@@ -49,7 +46,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="moveCar"
             android:text="L" />
 
         <Button
@@ -57,7 +53,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="moveCar"
             android:text="S" />
 
         <Button
@@ -65,7 +60,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="moveCar"
             android:text="R" />
     </LinearLayout>
 
@@ -79,7 +73,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="moveCar"
             android:text="B L" />
 
         <Button
@@ -87,7 +80,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="moveCar"
             android:text="B" />
 
         <Button
@@ -95,7 +87,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="moveCar"
             android:text="B R" />
     </LinearLayout>
 
