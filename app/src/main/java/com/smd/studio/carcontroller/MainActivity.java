@@ -1,7 +1,6 @@
 package com.smd.studio.carcontroller;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +11,7 @@ import android.widget.Button;
 
 public class MainActivity extends ActionBarActivity {
 
+    String command = "";
     Button forwardLeft, forward, forwardRight, left, stop, right, backward, backwardLeft, backwardRight;
 
     @Override
@@ -63,28 +63,47 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void moveCar(View v) {
+        RCTask rcTask = new RCTask();
+        if (v.getId() == R.id.btnForward) {
+            command = Constants.FORWARD;
+        } else if (v.getId() == R.id.btnForwardLeft) {
+            command = Constants.FORWARD_LEFT;
+        } else if (v.getId() == R.id.btnForwardRight) {
+            command = Constants.FORWARD_RIGHT;
+        } else if (v.getId() == R.id.btnBackward) {
+            command = Constants.BACKWARD;
+        } else if (v.getId() == R.id.btnBackwardLeft) {
+            command = Constants.BACKWARD_LEFT;
+        } else if (v.getId() == R.id.btnBackwardRight) {
+            command = Constants.BACKWARD_RIGHT;
+        } else if (v.getId() == R.id.btnLeft) {
+            command = Constants.LEFT;
+        } else if (v.getId() == R.id.btnRight) {
+            command = Constants.RIGHT;
+        } else if (v.getId() == R.id.btnStop) {
+            command = Constants.STOP;
+        }
+        rcTask.execute(command);
+        return;
+    }
+
+    private void stopMovingCar() {
+        RCTask rcTask = new RCTask();
+        rcTask.execute(Constants.STOP);
+    }
+
     public class PressHoldButtonListener implements View.OnTouchListener {
-        private Handler mHandler;
-        private MoveCarAction mAction;
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
 
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    if (mHandler != null) {
-                        return true;
-                    }
-                    mHandler = new Handler();
-                    mAction = new MoveCarAction(v, mHandler);
-                    mHandler.post(mAction);
+                    moveCar(v);
                     break;
                 case MotionEvent.ACTION_UP:
-                    if (mHandler == null) {
-                        return true;
-                    }
-                    mHandler.removeCallbacks(mAction);
-                    mHandler = null;
+                    stopMovingCar();
                     break;
             }
             return true;
