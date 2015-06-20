@@ -1,6 +1,7 @@
 package com.smd.studio.carcontroller;
 
 import android.app.Application;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -43,6 +44,7 @@ public class ConnectionConfig extends Application {
 
     public void setHostAddress(String address) {
         hostAddress = address;
+        Toast.makeText(this, "The IP Address of the Car is " + hostAddress, Toast.LENGTH_LONG).show();
     }
 
     public void obtainHostIpAddress() {
