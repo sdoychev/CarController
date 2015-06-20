@@ -5,7 +5,6 @@ import android.app.Application;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.InetAddress;
 
 /**
  * Created by Doychev on 22.5.2015.
@@ -58,7 +57,7 @@ public class ConnectionConfig extends Application {
                     continue;
                 }
                 String[] splitted = line.split(" +");
-                if (splitted != null && splitted.length >= 4 && InetAddress.getByName(splitted[0]).isReachable(500) && !splitted[0].equals(ConnectionConfig.getInstance().getGatewayAddress())) {
+                if (splitted != null && splitted.length >= 4 && !splitted[0].equals(ConnectionConfig.getInstance().getGatewayAddress())) {
                     setHostAddress(splitted[0]);
                 }
             }
