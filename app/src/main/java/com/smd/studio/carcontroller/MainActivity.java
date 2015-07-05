@@ -1,5 +1,6 @@
 package com.smd.studio.carcontroller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -17,30 +18,44 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+        initLayout();
+    }
+
+    private void initLayout() {
+        forwardLeft = (Button) findViewById(R.id.btnForwardLeft);
+        forward = (Button) findViewById(R.id.btnForward);
+        forwardRight = (Button) findViewById(R.id.btnForwardRight);
+        left = (Button) findViewById(R.id.btnLeft);
+        stop = (Button) findViewById(R.id.btnStop);
+        right = (Button) findViewById(R.id.btnRight);
+        backwardLeft = (Button) findViewById(R.id.btnBackwardLeft);
+        backward = (Button) findViewById(R.id.btnBackward);
+        backwardRight = (Button) findViewById(R.id.btnBackwardRight);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         PressHoldButtonListener pressHoldButtonListener = new PressHoldButtonListener();
-
-        forwardLeft = (Button) findViewById(R.id.btnForwardLeft);
         forwardLeft.setOnTouchListener(pressHoldButtonListener);
-        forward = (Button) findViewById(R.id.btnForward);
         forward.setOnTouchListener(pressHoldButtonListener);
-        forwardRight = (Button) findViewById(R.id.btnForwardRight);
         forwardRight.setOnTouchListener(pressHoldButtonListener);
-
-        left = (Button) findViewById(R.id.btnLeft);
         left.setOnTouchListener(pressHoldButtonListener);
-        stop = (Button) findViewById(R.id.btnStop);
         stop.setOnTouchListener(pressHoldButtonListener);
-        right = (Button) findViewById(R.id.btnRight);
         right.setOnTouchListener(pressHoldButtonListener);
-
-        backwardLeft = (Button) findViewById(R.id.btnBackwardLeft);
         backwardLeft.setOnTouchListener(pressHoldButtonListener);
-        backward = (Button) findViewById(R.id.btnBackward);
         backward.setOnTouchListener(pressHoldButtonListener);
-        backwardRight = (Button) findViewById(R.id.btnBackwardRight);
         backwardRight.setOnTouchListener(pressHoldButtonListener);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        stopMovingCar();
     }
 
     @Override
@@ -58,6 +73,8 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(MainActivity.this, Settings.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -85,7 +102,6 @@ public class MainActivity extends ActionBarActivity {
             command = Constants.STOP;
         }
         rcTask.execute(command);
-        return;
     }
 
     private void stopMovingCar() {

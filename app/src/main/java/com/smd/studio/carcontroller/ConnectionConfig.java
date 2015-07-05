@@ -1,19 +1,20 @@
 package com.smd.studio.carcontroller;
 
 import android.app.Application;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
- * Created by Doychev on 22.5.2015.
+ * Created by Doychev on 22.05.2015.
  */
 
 public class ConnectionConfig extends Application {
 
     private static ConnectionConfig mInstance;
+    private static ArrayList<String> ipList = new ArrayList<>();
     private String gatewayAddress;
     private String hostAddress;
 
@@ -25,17 +26,14 @@ public class ConnectionConfig extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-        gatewayAddress = "192.168.1.1";
-        hostAddress = "192.168.1.103";
+        gatewayAddress = "192.168.1.1"; //the default gateway address.
+        hostAddress = "192.168.1.103";  //the default host address.
+        ipList.add(hostAddress);
         obtainHostIpAddress();
     }
 
     public String getGatewayAddress() {
         return gatewayAddress;
-    }
-
-    public void setGatewayAddress(String address) {
-        gatewayAddress = address;
     }
 
     public String getHostAddress() {
@@ -44,7 +42,10 @@ public class ConnectionConfig extends Application {
 
     public void setHostAddress(String address) {
         hostAddress = address;
-        Toast.makeText(this, "The IP Address of the Car is " + hostAddress, Toast.LENGTH_LONG).show();
+    }
+
+    public ArrayList<String> getIpList() {
+        return ipList;
     }
 
     public void obtainHostIpAddress() {
@@ -59,8 +60,9 @@ public class ConnectionConfig extends Application {
                     continue;
                 }
                 String[] splitted = line.split(" +");
-                if (splitted != null && splitted.length >= 4 && !splitted[0].equals(ConnectionConfig.getInstance().getGatewayAddress())) {
+                if (splitted.length >= 4 && !splitted[0].equals(ConnectionConfig.getInstance().getGatewayAddress())) {
                     setHostAddress(splitted[0]);
+                    ipList.add(splitted[0]);
                 }
             }
         } catch (Exception e) {
